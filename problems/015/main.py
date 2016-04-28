@@ -5,6 +5,11 @@ Starting in the top left corner of a 2x2 grid, and only being able to move to th
 How many such routes are there through a 20x20 grid?
 """
 
-from functools import reduce
+from math import factorial
 
-print(reduce(lambda x, y: int(x) + int(y), str(pow(2, 1000))))
+
+def binomial_coefficient(a, b):
+    return factorial(a)/(factorial(b)*factorial(a - b))
+
+
+print(binomial_coefficient(40, 20))
