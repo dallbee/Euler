@@ -5,17 +5,11 @@ Starting in the top left corner of a 2x2 grid, and only being able to move to th
 How many such routes are there through a 20x20 grid?
 """
 
+from math import factorial
 
 
-# I've only been able to partially crack the pattern.
-# There should be a closed form solution, but this will have to do:
+def binomial_coefficient(a, b):
+    return factorial(a)/(factorial(b)*factorial(a - b))
 
-n = 20
 
-paths = [i for i in range(1, n+2)]
-
-for _ in range(1, n):
-    for i in range(1, n+1):
-        paths[i] = paths[i] + paths[i-1]
-
-print(paths[-1])
+print(binomial_coefficient(40, 20))
