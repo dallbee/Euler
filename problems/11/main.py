@@ -52,27 +52,13 @@ grid = [
     [ 1,70,54,71,83,51,54,69,16,92,33,48,61,43,52, 1,89,19,67,48]
 ]
 
-"""
-xwindow = (x[i:i+4] for x in grid for i, _ in enumerate(x) if len(x[i:i+4]) >= 4)
-ywindow = (y[i:i+4] for y in zip(*grid) for i, _ in enumerate(y) if len(y[i:i+4]) >= 4)
-fwindow = ()
-
-xproduct = (reduce(lambda a, b: a * b, map(int, x)) for x in xwindow)
-yproduct = (reduce(lambda a, b: a * b, map(int, y)) for y in ywindow)
-
-print(max(xproduct))
-print(max(yproduct))
-
-48477312
-51267216
-"""
-
 def product(iterable):
     try:
         result = reduce(lambda x, y: x * y, iterable)
     except TypeError:
         result = 0
     return result
+
 
 size = 4
 x_list = []
@@ -85,9 +71,6 @@ for i, line in enumerate(grid):
         x_list.append(product(grid[i][j+k] for k in range(size) if len(grid[i][j:]) >= 4))
         y_list.append(product(grid[j+k][i] for k in range(size) if len(grid[j:]) >= 4))
         f_list.append(product(grid[i+k][j+k] for k in range(size) if len(grid[i:][j:]) >= 4))
-        b_list.append(product(grid[-(i+k)][-(j+k)] for k in range(size) if len(grid[i:][j:]) >= 4))
+        b_list.append(product(grid[i+k][j-k] for k in range(size) if len(grid[i:][-j-1:]) >= 4))
 
-print(max(x_list))
-print(max(y_list))
-print(max(f_list))
-print(max(b_list))
+print(max(x_list + y_list + f_list + b_list))
