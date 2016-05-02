@@ -14,14 +14,12 @@ from math import sqrt
 from functools import reduce
 
 
-def factorize(n, factors=None):
-    if not factors:
-        factors = set()
+def factorize(n, factors):
     for x in range(2, int(sqrt(n)) + 1):
         if n % x == 0:
-            factors.add(x)
+            factors[x] = factors.get(x, 1) + 1
             return factorize(n // x, factors)
-    factors.add(n)
+    factors[n] = factors.get(n, 1) + 1
     return factors
 
 
@@ -36,4 +34,4 @@ def divisors(n):
     return [1] + divisors
 
 
-print(divisors(220))
+print(factorize(220, {}))
