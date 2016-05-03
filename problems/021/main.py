@@ -11,27 +11,23 @@ Evaluate the sum of all the amicable numbers under 10000.
 
 
 from math import sqrt
-from functools import reduce
-
-
-def factorize(n, factors):
-    for x in range(2, int(sqrt(n)) + 1):
-        if n % x == 0:
-            factors[x] = factors.get(x, 1) + 1
-            return factorize(n // x, factors)
-    factors[n] = factors.get(n, 1) + 1
-    return factors
-
-
-def generate_multiples(n, max):
-    return [n*x for x in range(1, max) if n*x < max]
 
 
 def divisors(n):
-    divisors = []
-    for item in factorize(n):
-        divisors += generate_multiples(item, n)
-    return [1] + divisors
+    divisors = {1}
+    for x in range(2, int(sqrt(n)) + 1):
+        if n % x == 0:
+            divisors.add(x)
+            divisors.add(n // x)
+    return divisors
 
 
-print(factorize(220, {}))
+amicables = set()
+for x in range(1, 10000):
+    a = sum(divisors(x))
+    b = sum(divisors(a))
+
+    if x == b and a != b:
+        amicables.add(x)
+
+print(sum(amicables))
