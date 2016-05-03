@@ -24,18 +24,11 @@ What is the index of the first term in the Fibonacci sequence to contain 1000 di
 
 
 def gen_fib():
-    (x, y) = (1, 1)
-    yield x
-    yield y
+    x, y = 0, 1
 
     while True:
-        z = x + y
-        x = y
-        y = z
-        yield z
+        x, y = y, x + y
+        yield x
 
 
-for i, x in enumerate(gen_fib()):
-    if len(str(x)) == 1000:
-        print(i + 1)
-        break
+print(next(i + 1 for i, x in enumerate(gen_fib()) if len(str(x)) == 1000))
